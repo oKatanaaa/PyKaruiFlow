@@ -45,8 +45,14 @@ class Tensor(AbstractTensor):
             return
         else:
             input_vals = [x.data for x in self.input_tensors]
-            grads = self.op.backward(input_vals)
+            grads = self.op.backward(input_vals, outer_grad)
 
         for grad, tensor in zip(grads, self.input_tensors):
             # Invoke computation of the inner gradients
-            tensor.backward(np.dot(outer_grad, grad.T))
+            tensor.backward(grad)
+
+    def zero_grad(self):
+        self.grad = np.zeros_like(self.grad)
+
+        for x in self.input_tensors:
+            x.zero_grad()

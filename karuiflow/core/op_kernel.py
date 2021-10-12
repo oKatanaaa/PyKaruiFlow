@@ -9,5 +9,5 @@ class OpKernel:
         pass
 
     @abstractmethod
-    def backward(self, input_values: List[np.ndarray]) -> List[np.ndarray]:
+    def backward(self, input_values: List[np.ndarray], outer_grad: np.ndarray) -> List[np.ndarray]:
         pass

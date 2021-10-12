@@ -53,9 +53,14 @@ class AbstractTensor:
         self._grad = value
 
     @abstractmethod
+    def zero_grad(self):
+        pass
+
+    @abstractmethod
     def forward(self, feed_dict: dict = {}) -> np.ndarray:
         raise NotImplementedError()
 
     @abstractmethod
     def backward(self, outer_grad=None):
         raise NotImplementedError()
+

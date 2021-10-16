@@ -40,10 +40,11 @@ class Tensor(AbstractTensor):
         # Accumulate incoming gradient
         self.grad += outer_grad
 
-        # Compute gradients of this tensor with respect to the input tensors
+
         if self.op is None:
             return
         else:
+            # Compute gradients of this tensor with respect to the input tensors
             input_vals = [x.data for x in self.input_tensors]
             grads = self.op.backward(input_vals, outer_grad)
 

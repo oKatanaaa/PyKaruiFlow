@@ -35,7 +35,8 @@ class AbstractTensor:
 
     @data.setter
     def data(self, value: np.ndarray):
-        assert isinstance(value, np.ndarray), f'Data value must be a numpy array, but received {type(value)}.'
+        assert isinstance(value, (np.ndarray, np.float32)) \
+            , f'Data value must be a numpy array, but received {type(value)}.'
         assert tuple(value.shape) == tuple(self.specs.shape), \
             f'Shapes are inconsistent. Expected {self.specs.shape} but received {value.shape}.'
         self._data = value
@@ -47,7 +48,8 @@ class AbstractTensor:
 
     @grad.setter
     def grad(self, value: np.ndarray):
-        assert isinstance(value, np.ndarray), f'Gradient value must be a numpy array, but received {type(value)}.'
+        assert isinstance(value, (np.ndarray, np.float32))\
+            , f'Gradient value must be a numpy array, but received {type(value)}.'
         assert tuple(value.shape) == tuple(self.specs.shape), \
             f'Shapes are inconsistent. Expected {self.specs.shape} but received {value.shape}.'
         self._grad = value

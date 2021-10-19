@@ -1,8 +1,11 @@
-from typing import List
+from typing import List, Union
 from abc import abstractmethod
 
 from .op_kernel import OpKernel
 from .tensor import Tensor, TensorSpecs
+
+
+TensorList = List[Tensor]
 
 
 class Op:
@@ -15,6 +18,8 @@ class Op:
         pass
 
     # noinspection PyCallingNonCallable
-    def __call__(self, input_tensors: List[Tensor]) -> Tensor:
+    def __call__(self, input_tensors: Union[TensorList, Tensor]) -> Tensor:
+        if isinstance(input_tensors, Tensor):
+            input_tensors = [input_tensors]
         specs = self.infer_output_tensor_specs(input_tensors)
         return Tensor(specs, self.kernel_type(**self.kernel_kwargs), input_tensors)

@@ -5,13 +5,12 @@ from .kernel import ReduceSumKernel
 
 
 class ReduceSum(Op):
-    def __init__(self, axes=(-1,)):
-        if isinstance(axes, int):
+    def __init__(self, axes):
+        if isinstance(axes, (int, list)):
             axes = tuple(axes)
 
         self.axes = axes
         super().__init__(ReduceSumKernel, axes=axes)
-
 
     def infer_output_tensor_specs(self, input_tensors: List[Tensor]) -> TensorSpecs:
         a = input_tensors[0]

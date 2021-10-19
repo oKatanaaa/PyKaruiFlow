@@ -66,3 +66,6 @@ class AbstractTensor:
     def backward(self, outer_grad=None):
         raise NotImplementedError()
 
+    def __repr__(self):
+        return f'' \
+               f'Tensor(dtype={self.dtype}, shape={self.shape}, data={self._data})'

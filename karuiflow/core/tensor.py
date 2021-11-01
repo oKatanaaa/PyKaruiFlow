@@ -40,7 +40,6 @@ class Tensor(AbstractTensor):
         # Accumulate incoming gradient
         self.grad += outer_grad
 
-
         if self.op is None:
             return
         else:

@@ -8,5 +8,5 @@ class LogKernel(OpKernel):
         return np.log(input_vals[0])
 
     def backward(self, input_vals, outer_grad):
-        grad0 = 1. / input_vals * outer_grad
+        grad0 = 1. / input_vals[0] * outer_grad
         return [grad0]

@@ -1,4 +1,5 @@
 from .matmul import matmul
-from .reduce_sum import reduce_sum
+from .sum import sum
 from .sigmoid import sigmoid
-
+from .relu import relu
+from .log import log

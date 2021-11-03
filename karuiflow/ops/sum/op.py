@@ -1,16 +1,16 @@
 from typing import List
 
 from karuiflow.core import Op, Tensor, TensorSpecs
-from .kernel import ReduceSumKernel
+from .kernel import SumKernel
 
 
-class ReduceSum(Op):
+class Sum(Op):
     def __init__(self, axes):
         if isinstance(axes, (int, list)):
             axes = tuple(axes)
 
         self.axes = axes
-        super().__init__(ReduceSumKernel, axes=axes)
+        super().__init__(SumKernel, axes=axes)
 
     def infer_output_tensor_specs(self, input_tensors: List[Tensor]) -> TensorSpecs:
         a = input_tensors[0]

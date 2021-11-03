@@ -3,7 +3,7 @@ from karuiflow.core import OpKernel
 import numpy as np
 
 
-class ReduceSumKernel(OpKernel):
+class SumKernel(OpKernel):
     def __init__(self, axes):
         self.axes = axes
 

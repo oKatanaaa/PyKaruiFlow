@@ -54,3 +54,6 @@ class Tensor(AbstractTensor):
 
         for x in self.input_tensors:
             x.zero_grad()
+
+    def __del__(self):
+        print(f'Deallocating tensor with specs={self.specs}.')

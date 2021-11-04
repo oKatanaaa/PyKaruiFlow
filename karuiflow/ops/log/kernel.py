@@ -1,9 +1,9 @@
-from karuiflow.core import OpKernel
+from karuiflow.core import Kernel
 
 import numpy as np
 
 
-class LogKernel(OpKernel):
+class LogKernel(Kernel):
     def forward(self, input_vals):
         return np.log(input_vals[0])
 

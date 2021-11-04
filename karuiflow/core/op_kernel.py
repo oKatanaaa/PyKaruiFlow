@@ -3,7 +3,7 @@ from abc import abstractmethod
 import numpy as np
 
 
-class OpKernel:
+class Kernel:
     @abstractmethod
     def forward(self, input_values: List[np.ndarray]) -> np.ndarray:
         pass

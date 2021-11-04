@@ -1,9 +1,9 @@
-from karuiflow.core import OpKernel
+from karuiflow.core import Kernel
 
 import numpy as np
 
 
-class MatMulKernel(OpKernel):
+class MatMulKernel(Kernel):
     def forward(self, input_vals):
         return np.dot(input_vals[0], input_vals[1])
 
@@ -14,4 +14,3 @@ class MatMulKernel(OpKernel):
         grad1 = input_vals[0]
         grad1 = np.dot(grad1.T, outer_grad)
         return [grad0, grad1]
-

@@ -1,6 +1,6 @@
 from .op import Sum
 
 
-def sum(x, axes):
-    op = Sum(axes=axes)
-    return op(x)
+def sum(x, dim):
+    op = Sum(dim=dim)
+    return op([x])

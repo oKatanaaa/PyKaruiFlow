@@ -1,14 +1,14 @@
 from typing import List
 from copy import deepcopy
 
-from karuiflow.core import Op, Tensor, TensorSpecs
+from karuiflow.core import Op, Tensor, TensorSpecs, Kernel
 from .kernel import SigmoidKernel
 
 
 class Sigmoid(Op):
-    def __init__(self):
-        super().__init__(SigmoidKernel)
+    def instantiate_kernel(self, inputs: List[Tensor]) -> Kernel:
+        return SigmoidKernel()
 
-    def infer_output_tensor_specs(self, input_tensors: List[Tensor]) -> TensorSpecs:
-        specs = deepcopy(input_tensors[0].specs)
+    def infer_output_tensor_specs(self, inputs: List[Tensor]) -> TensorSpecs:
+        specs = deepcopy(inputs[0].specs)
         return specs

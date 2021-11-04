@@ -1,9 +1,9 @@
-from karuiflow.core import OpKernel
+from karuiflow.core import Kernel
 
 import numpy as np
 
 
-class SigmoidKernel(OpKernel):
+class SigmoidKernel(Kernel):
     def forward(self, input_vals):
         exp = np.exp(-input_vals[0])
         return np.divide(1.0, (1.0 + exp), dtype='float32')

@@ -1,9 +1,9 @@
-from karuiflow.core import OpKernel
+from karuiflow.core import Kernel
 
 import numpy as np
 
 
-class ReLUKernel(OpKernel):
+class ReLUKernel(Kernel):
     def forward(self, input_vals):
         return np.where(input_vals[0] > 0.0, input_vals[0], 0.0)
 

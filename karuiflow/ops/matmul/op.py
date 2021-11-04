@@ -1,16 +1,16 @@
 from typing import List
 
-from karuiflow.core import Op, Tensor, TensorSpecs
+from karuiflow.core import Op, Tensor, TensorSpecs, Kernel
 from .kernel import MatMulKernel
 
 
 class MatMul(Op):
-    def __init__(self):
-        super().__init__(MatMulKernel)
+    def instantiate_kernel(self, inputs: List[Tensor]) -> Kernel:
+        return MatMulKernel()
 
-    def infer_output_tensor_specs(self, input_tensors: List[Tensor]) -> TensorSpecs:
-        a = input_tensors[0]
-        b = input_tensors[1]
+    def infer_output_tensor_specs(self, inputs: List[Tensor]) -> TensorSpecs:
+        a = inputs[0]
+        b = inputs[1]
         new_shape = (a.shape[0], b.shape[1])
         dtype = a.dtype
         return TensorSpecs(dtype, new_shape)

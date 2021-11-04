@@ -2,15 +2,22 @@ import numpy as np
 from typing import List
 
 from .abstract_tensor import AbstractTensor, TensorSpecs
-from .op_kernel import OpKernel
+from .op_kernel import Kernel
 
 
 class Tensor(AbstractTensor):
-    def __init__(self, specs: TensorSpecs, parent_op: OpKernel = None, input_tensors: List[AbstractTensor] = ()):
+    def __init__(
+            self,
+            data: np.ndarray,
+            specs: TensorSpecs,
+            parent_op: Kernel = None,
+            input_tensors: List[AbstractTensor] = (),
+            requires_grad=False
+    ):
         self.op = parent_op
         self.input_tensors = input_tensors
         self.grad_initialized = False
-        super().__init__(specs)
+        super().__init__(data, specs, requires_grad)
 
     def init_grad(self):
         if self.grad_initialized:
@@ -19,20 +26,10 @@ class Tensor(AbstractTensor):
         self.grad = np.zeros(shape=self.shape, dtype=self.dtype)
         self.grad_initialized = True
 
-    def forward(self, feed_dict: dict = {}) -> np.ndarray:
-        if self in feed_dict.keys():
-            self.data = feed_dict[self]
-            return self.data
-
-        if self.op is None:
-            return self.data
-
-        input_data = [x.forward(feed_dict) for x in self.input_tensors]
-
-        self.data = self.op.forward(input_data)
-        return self.data
-
     def backward(self, outer_grad=None):
+        if not self.requires_grad:
+            return None
+
         self.init_grad()
         if outer_grad is None:
             outer_grad = np.ones_like(self.grad)
@@ -52,7 +49,8 @@ class Tensor(AbstractTensor):
             tensor.backward(grad)
 
     def zero_grad(self):
-        self.grad = np.zeros_like(self.grad)
+        if self.requires_grad and self.grad_initialized:
+            self.grad = np.zeros_like(self.grad)
 
         for x in self.input_tensors:
             x.zero_grad()

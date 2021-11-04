@@ -1,3 +1,3 @@
-from karuiflow.core import TensorHolder
+from karuiflow.core import tensor
 
 from karuiflow.ops import *

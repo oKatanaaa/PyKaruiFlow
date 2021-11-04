@@ -1,11 +1,11 @@
-from karuiflow.core import OpKernel
+from karuiflow.core import Kernel
 
 import numpy as np
 
 
-class SumKernel(OpKernel):
-    def __init__(self, axes):
-        self.axes = axes
+class SumKernel(Kernel):
+    def __init__(self, dim):
+        self.axes = dim
 
     def forward(self, input_vals):
         input_vals = np.sum(input_vals[0], axis=self.axes)

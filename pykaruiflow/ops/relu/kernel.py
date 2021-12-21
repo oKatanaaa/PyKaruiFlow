@@ -1,4 +1,4 @@
-from karuiflow.core import Kernel
+from pykaruiflow.core import Kernel
 
 import numpy as np
 

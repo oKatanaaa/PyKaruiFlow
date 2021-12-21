@@ -1,4 +1,4 @@
-import karuiflow as kf
+import pykaruiflow as kf
 import numpy as np
 
 

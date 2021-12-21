@@ -1,6 +1,6 @@
 from typing import List
 
-from karuiflow.core import Op, Tensor, TensorSpecs, Kernel
+from pykaruiflow.core import Op, Tensor, TensorSpecs, Kernel
 from .kernel import SumKernel
 
 

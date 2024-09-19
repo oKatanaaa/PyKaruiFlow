@@ -4,6 +4,7 @@ from .abstract_tensor import DEVICE_CPU, DEVICE_GPU
 from .tensor import Tensor, TensorSpecs
 from .op import Op, Kernel
 from .holder import TensorHolder
+from .parameter import Parameter
 
 
 def tensor(data: np.ndarray, dtype=None, device=DEVICE_CPU, requires_grad=False):

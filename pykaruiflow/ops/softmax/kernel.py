@@ -11,7 +11,7 @@ def flatten(x):
 class SoftmaxKernel(Kernel):
     def forward(self, input_vals):
         tensor = input_vals[0]
-        exp = np.exp(tensor)
+        exp = np.exp(tensor - tensor.max(axis=-1, keepdims=True))
         return np.divide(exp, np.sum(exp, axis=-1, keepdims=True), dtype='float32')
 
     def backward(self, input_vals, outer_grad):

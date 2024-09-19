@@ -11,7 +11,7 @@ DEVICE_GPU = 'gpu'
 class TensorSpecs:
     dtype: Union[type, str]
     shape: tuple
-    device: str = None
+    device: str = 'cpu'
 
 
 class AbstractTensor:

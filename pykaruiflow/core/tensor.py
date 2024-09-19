@@ -3,6 +3,7 @@ from typing import List
 
 from .abstract_tensor import AbstractTensor, TensorSpecs
 from .op_kernel import Kernel
+from .registry import get_add_op, get_mul_op
 
 
 class Tensor(AbstractTensor):
@@ -55,5 +56,31 @@ class Tensor(AbstractTensor):
         for x in self.input_tensors:
             x.zero_grad()
 
+    @property
+    def is_leaf(self):
+        return self.op is None
+    
+    def __add__(self, other):
+        assert isinstance(other, (Tensor, float)), f"Can add Tensor only with Tensor or float, but received {type(other)}"
+        if isinstance(other, float):
+            other = np.array(other, dtype='float32')
+            specs = TensorSpecs(other.dtype, shape=other.shape)
+            other = Tensor(other, specs)
+        add_op = get_add_op()
+        return add_op([self, other])
+    
+    def __mul__(self, other):
+        assert isinstance(other, (Tensor, float)), f"Can multiply Tensor with Tensor or float, but received {type(other)}"
+        if isinstance(other, float):
+            other = np.array(other, dtype='float32')
+            specs = TensorSpecs(other.dtype, shape=other.shape)
+            other = Tensor(other, specs)
+        mul_op = get_mul_op()
+        return mul_op([self, other])
+    
+    def numpy(self):
+        return self.data.copy()
+
     def __del__(self):
-        print(f'Deallocating tensor with specs={self.specs}.')
+        #print(f'Deallocating tensor with specs={self.specs}.')
+        pass
